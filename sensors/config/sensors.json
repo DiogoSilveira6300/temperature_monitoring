@@ -1,0 +1,10 @@
+{
+	"registry_endpoint": "http://localhost:5050",
+	"registry_retries": 5,
+	"registry_retry_delay": 1,
+	"devices": [
+		{"device_id": "sensor-001", "send_interval": 5},
+		{"device_id": "sensor-002", "send_interval": 5},
+		{"device_id": "sensor-003", "send_interval": 10}
+	]
+}

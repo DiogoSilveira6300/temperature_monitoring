@@ -1,0 +1,11 @@
+{
+	"service_name": "analytics-service",
+	"service_url": "http://localhost:5003",
+	"role": "consumer",
+	"registry_endpoint": "http://localhost:5050",
+	"registry_retries": 5,
+	"registry_retry_delay": 1,
+	"host": "0.0.0.0",
+	"port": 5003,
+	"log_path": "logs/analytics.log"
+}

@@ -1,0 +1,11 @@
+{
+	"service_name": "ingestion-service",
+	"service_url": "http://localhost:5001",
+	"role": "consumer",
+	"registry_endpoint": "http://localhost:5050",
+	"registry_retries": 5,
+	"registry_retry_delay": 1,
+	"host": "0.0.0.0",
+	"port": 5001,
+	"log_path": "logs/ingestion.log"
+}

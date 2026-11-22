@@ -1,0 +1,10 @@
+{
+    "services": [
+        "http://localhost:5003/health",
+        "http://localhost:5002/health",
+        "http://localhost:5001/health",
+        "http://localhost:5050/health"
+    ],
+    "port": 8000,
+    "interval": 15
+}

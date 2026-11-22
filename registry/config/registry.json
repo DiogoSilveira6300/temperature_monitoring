@@ -1,0 +1,13 @@
+{
+	"service_name": "registry-service",
+	"host": "0.0.0.0",
+	"port": 5050,
+	
+	"log_path": "logs/registry.log",
+
+	"run_health_checks": true,
+	"health_check_timeout": 5,
+	"health_check_interval": 1,
+
+	"perform_load_balancing": true
+}
