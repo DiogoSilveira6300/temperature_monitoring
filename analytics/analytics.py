@@ -32,7 +32,7 @@ app.logger.setLevel(logging.INFO)
 app.logger.addHandler(handler)
 
 process = psutil.Process(os.getpid())
-process.cpu_percent()  # First call to initialize CPU monitoring
+process.cpu_percent()  
 
 
 @app.after_request

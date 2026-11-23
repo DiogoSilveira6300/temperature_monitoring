@@ -22,7 +22,7 @@ PORT = int(os.getenv("INGESTION_PORT", config["port"]))
 START_TIME = time.time()
 
 process = psutil.Process(os.getpid())
-process.cpu_percent()  # First call to initialize CPU monitoring
+process.cpu_percent()  
 
 
 @app.route('/health')
@@ -60,7 +60,7 @@ def lookup_storage_url(retries=REGISTRY_RETRIES, delay=REGISTRY_RETRY_DELAY):
 def ingest():
     data = request.get_json()
     print("Received:", data)
-    # Look up storage service via the registry, then forward
+    
     storage_url = lookup_storage_url()
     if not storage_url:
         return jsonify({"error": "storage service not available"}), 503

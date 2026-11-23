@@ -6,11 +6,11 @@ A distributed microservices-based temperature monitoring system built with Flask
 
 The system consists of five main components:
 
-- **Registry** (port 5050): Service discovery and registration
-- **Ingestion** (port 5001): Entry point for sensor readings
-- **Storage** (port 5002): SQLite database and statistics computation
-- **Analytics** (port 5003): Public-facing gateway for queries
-- **Exporter** (port 8000): Prometheus metrics exporter
+- **Registry**: Service discovery and registration
+- **Ingestion**: Entry point for sensor readings
+- **Storage**: SQLite database and statistics computation
+- **Analytics**: Public-facing gateway for queries
+- **Exporter**: Prometheus metrics exporter
 - **Sensors & Runner**: Client scripts for collecting data
 
 ## Prerequisites

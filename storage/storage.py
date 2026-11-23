@@ -35,7 +35,7 @@ app.logger.setLevel(logging.INFO)
 app.logger.addHandler(handler)
 
 process = psutil.Process(os.getpid())
-process.cpu_percent()  # First call to initialize CPU monitoring
+process.cpu_percent() 
 
 
 @app.after_request
@@ -157,7 +157,7 @@ def _compute_stats(device_id=None):
 		"average": round(statistics.mean(temperatures), 2),
 		"median": round(statistics.median(temperatures), 2),
 	}
-	# for the aggregate (all sensors) view, identify which sensor hit each extreme
+	
 	if device_id is None:
 		stats["highest"] = {"temperature": round(rows[max_index][0], 2), "device_id": rows[max_index][1]}
 		stats["lowest"] = {"temperature": round(rows[min_index][0], 2), "device_id": rows[min_index][1]}
