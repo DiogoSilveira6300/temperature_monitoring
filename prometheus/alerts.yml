@@ -1,0 +1,78 @@
+groups:
+  - name: service_alerts
+    rules:
+      - alert: ServiceDown
+        expr: service_health == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service is down"
+          description: "{{ $labels.service }} has been down for more than 1 minute"
+
+  - name: latency_alerts
+    rules:
+      - alert: HighAverageLatency
+        expr: |
+          (
+            sum by (service) (rate(service_request_latency_seconds_sum[1m]))
+            /
+            sum by (service) (rate(service_request_latency_seconds_count[1m]))
+          ) > 0.4
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High average latency detected"
+          description: "Service {{ $labels.service }} has average latency above 1 second"
+
+      - alert: TooManySlowRequests
+        expr: |
+          (
+            1 -
+            sum by (service) (rate(service_request_latency_seconds_bucket{le="0.2"}[1m]))
+            /
+            sum by (service) (rate(service_request_latency_seconds_bucket{le="+Inf"}[1m]))
+          ) > 0.05
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Too many slow requests"
+          description: "More than 5% of requests for service {{ $labels.service }} took over 200ms in the last minute"
+
+      - alert: High95thPercentileLatency
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (service, le) (rate(service_request_latency_seconds_bucket[1m]))
+          ) > 0.8
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High p95 latency"
+          description: "Service {{ $labels.service }} p95 latency is above 1 second"
+
+  - name: cpu_alerts
+    rules:
+      - alert: HighCPUUsage
+        expr: |
+          100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage on {{ $labels.instance }} is {{ $value | printf \"%.1f\" }}% (above 80% for 5 minutes)"
+
+      - alert: CriticalCPUUsage
+        expr: |
+          100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 95
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical CPU usage"
+          description: "CPU usage on {{ $labels.instance }} is {{ $value | printf \"%.1f\" }}% (above 95% for 5 minutes)"
+
